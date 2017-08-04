@@ -1,0 +1,23 @@
+#app{
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+// 工具类
+
+// 清除浮动
+.clearfix::after{
+    content: '';
+    display: table;
+    clear: both;
+    height: 0;
+}
+
+// 溢出隐藏
+.text-hide{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
