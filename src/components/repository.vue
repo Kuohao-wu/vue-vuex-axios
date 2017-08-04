@@ -42,6 +42,7 @@
         let params = {
           sort: 'updated'
         }
+        //  发起请求
         this.axios.get(api.repo_list, params)
         .then(res => {
           this.$store.commit(types.TITLE, 'Your repository')
@@ -66,7 +67,7 @@
     padding: 0;
     margin:0;
     width: 600px;
-    margin: 0 auto;
+    margin: 0 auto ;
     list-style: none;
     .listItem {
       position: relative;
@@ -75,6 +76,7 @@
       box-shadow: 0 0 4px rgba(0,0,0,0.3);
       margin-bottom: 30px;
       transition: all 0.3s;
+      background-color: #fff;
       &:hover{
         cursor: pointer;
         box-shadow: 0px 2px 8px 2px rgba(0,0,0,0.2)

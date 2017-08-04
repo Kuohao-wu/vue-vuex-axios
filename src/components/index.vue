@@ -7,7 +7,14 @@
 </template>
 
 <script>
+  import store from '@/vuex/store'
+  import * as types from '@/vuex/types'
   export default {
+    beforeRouteEnter (to, from, next) {
+      // 配置一个路由钩子，返回对index的时候改变title
+      store.commit(types.TITLE, 'github')
+      next()
+    }
   }
 </script>
 

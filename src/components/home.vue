@@ -8,11 +8,14 @@
         <span class="title">{{title}}</span>
       </div>
       <div class="right">
+        <!-- 如果存在token则显示logout，因为只有正常的通过验证的token才会存到本地 -->
         <span class="logOut" v-show="token" @click="logout">logout</span>
       </div>
     </div>
     <transition name="fade" mode="out-in">
-        <router-view></router-view>
+        <div class="viewContainer">
+          <router-view></router-view>
+        </div>
     </transition>
   </div>
 </template>
@@ -54,16 +57,19 @@
     text-align: center
   }
   .topBar{
+      position: fixed;
+      top:0;
+      width: 100%;
+      box-shadow: 0 1px 8px 1px rgba(0,0,0,0.2);
       height: 50px;
       line-height: 50px;
-      padding: 0 160px;
       background: $themeColor;
       font-size: 0;
-      margin-bottom: 80px;
-
+      z-index: 999;
       .left {
         height: inherit;
         float: left;
+        margin-left: 120px;
         .title{
           display: inline-block;
           font-size: 18px;
@@ -78,6 +84,7 @@
       }
       .right{
         float:right;
+        margin-right: 120px;
         .logOut{
           font-size: 16px;
           color: #fff;
@@ -90,5 +97,8 @@
     }
     .fade-enter,.fade-leave-to {
       opacity: 0;
+    }
+    .viewContainer{
+      margin-top: 100px;
     }
 </style>
