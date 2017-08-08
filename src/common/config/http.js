@@ -1,11 +1,12 @@
 import axios from 'axios'
 import store from '@/vuex/store'
 import * as types from '@/vuex/types'
-import router from '@/router/index.js'
+import router from '@/router/index'
+import api from '@/common/config/api'
 
 // 配置axios
 axios.defaults.timeout = 50000
-axios.defaults.baseURL = 'https://api.github.com/'
+axios.defaults.baseURL = api.baseURL
 
 // axios 拦截器
 

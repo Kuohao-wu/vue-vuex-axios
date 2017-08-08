@@ -10,17 +10,17 @@ const router = new Router({
   routes
 })
 
-// 如果页面刷新，如果本地有token则从localstorage中获取token，免登陆
+// 如果页面刷新，如果本地有token则从localstorage中获取token存到vuex中
 if (localStorage.getItem('token')) {
   store.commit(types.LOGIN, localStorage.getItem('token'))
 }
 
 // 全局路由拦截
 router.beforeEach((to, from, next) => {
-  // 当进入repository路由的时候，判断repository是否需要验证，是则进入验证阶段
+  // 判断路由是否需要验证
   if (to.meta.requireAuth) {
     if (store.state.token) {
-      // 如果vuex中存在token，则进入repository
+      // 如果vuex中存在token，则直接进入repository
       next()
     } else {
       // 不存在Token跳转到login
@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
         }
       })
     }
-    // 其他路由不需要验证则直接进入
+    // 不需要验证就直接进入
   } else {
     next()
   }

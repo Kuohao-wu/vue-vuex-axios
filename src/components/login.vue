@@ -10,7 +10,7 @@
         <span class="submitIcon" v-show="show">→</span>
       </transition>
       <div class="getToken">
-        <a href="https://github.com/settings/tokens/new" target="_blank">generate your token</a>
+        <a href="https://github.com/settings/tokens/" target="_blank">generate your token</a>
       </div>
     </div>
   </div>

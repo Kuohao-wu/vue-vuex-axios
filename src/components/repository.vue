@@ -6,7 +6,7 @@
         </circle>
       </svg>
     </div>
-    <ul class="repoList">
+    <ul class="repoList" v-scroll="loadMore">
       <li v-for="item in list" class="listItem clearfix" :key="item.id">
         <div class="left">
             <h2 class="title">{{item.name}}</h2>
@@ -21,37 +21,86 @@
         </div>
       </li>
     </ul>
+    <div v-if="loaderShow" class="loader listLoad">
+      <svg class="circular" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10">
+        </circle>
+      </svg>
+    </div>
   </div>
 </template>
 
 <script>
-  import api from '@/constant/api'
+  import api from '@/common/config/api'
   import * as types from '@/vuex/types'
+  import store from '@/vuex/store'
   export default {
     data () {
       return {
         list: [],
-        isShow: true
+        isShow: true,
+        listPage: 1,
+        loaderShow: false
       }
     },
+    store,
     mounted () {
       this.getRepository()
     },
     methods: {
       getRepository () {
         let params = {
-          sort: 'updated'
+          page: this.listPage,
+          per_page: 10
         }
         //  发起请求
-        this.axios.get(api.repo_list, params)
+        this.axios.get(api.repo_list, {
+          params
+        })
         .then(res => {
-          this.$store.commit(types.TITLE, 'Your repository')
+          store.commit(types.TITLE, 'Your repository')
           this.list = res.data
-          this.isShow = false
         })
         .catch(err => {
           console.log(err)
         })
+      },
+      loadMore () {
+        let params = {
+          page: ++this.listPage,  // 当前页数
+          per_page: 10 // 条数
+        }
+
+        // 显示loading
+        this.loaderShow = true
+        this.axios.get(api.repo_list, {
+          params
+        })
+        .then(res => {
+          if (res.data.length) {
+            this.list = [...this.list, ...res.data]
+            store.commit(types.ISBOTTOM, false)
+          }
+          this.loaderShow = false
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
+    },
+    directives: {
+      'scroll': {
+        bind (el, binding) {
+          window.addEventListener('scroll', evt => {
+            if (document.body.scrollTop + window.innerHeight >= el.clientHeight) {
+              if (!store.state.isBottom) {
+                store.commit(types.ISBOTTOM, true)
+                let fn = binding.value
+                fn()
+              }
+            }
+          })
+        }
       }
     }
   }
@@ -64,6 +113,7 @@
     padding: 0;
   }
   .repoList {
+    position: relative;
     padding: 0;
     margin:0;
     width: 600px;
@@ -118,4 +168,8 @@
       }
     }
   }
+  .listLoad {
+      top: -12px;
+      width: 20px;
+    }
 </style>

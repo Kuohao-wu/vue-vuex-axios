@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 const state = {
   title: '',
-  token: ''
+  token: '',
+  isBottom: false
 }
 
 const mutations = {
@@ -20,6 +21,9 @@ const mutations = {
   [types.LOGOUT] (state, data) {
     localStorage.removeItem('token')
     state.token = ''
+  },
+  [types.ISBOTTOM] (state, data) {
+    state.isBottom = data
   }
 }
 
