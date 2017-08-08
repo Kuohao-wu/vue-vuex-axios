@@ -6,6 +6,8 @@
 最后也感谢原项目的作者，项目练手十分好，在这里贴出原作者的文章地址： https://segmentfault.com/a/1190000008383094
 
 ## 项目结构
+
+``` shell
 ├── App.vue
 ├── assets
 │   └── logo.png
@@ -33,7 +35,36 @@
     ├── store.js  // vuex数据仓库
     └── types.js // mutations公共常量
 
-##登录拦截逻辑
+
+├── App.vue
+├── assets
+│   └── logo.png
+├── common
+│   ├── config     ## 项目通用配置
+│   │   ├── api.js  ##  API配置
+│   │   └── http.js ##  封装axios配置，拦截器配置文件
+│   └── style
+│       ├── base.scss     ## 基础样式
+│       ├── index.scss    ## 项目样式入口
+│       ├── loader.scss   ## loading css
+│       └── variable.scss ## scss全局变量
+├── components
+│   ├── error.vue  ## 404 error
+│   ├── home.vue  ## 主页组件
+│   ├── index.vue ## 首页路由组件
+│   ├── login.vue ## 登录路由组件
+│   └── repository.vue ## 仓库展示路由组件
+├── main.js
+├── router
+│   ├── index.js  ## 路由配置、拦截
+│   └── routes.js ## 路由分发
+└── vuex
+    ├── store.js ## vuex数据仓库
+    └── types.js ## mutations 常量
+
+```
+
+## 登录拦截逻辑
 
 * 第一步: 路由拦截*
 首先在定义路由的时候设置repository的meta属性，使用一个requireAuth属性说明这个路由是需要登录验证的
