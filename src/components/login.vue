@@ -55,6 +55,7 @@
 
 <style lang="scss">
   @import 'src/common/style/variable.scss';
+  @import 'src/common/style/mixin.scss';
 
   .input{
     border: none;
@@ -81,15 +82,7 @@
   .getToken{
     margin-top: 50px;
     a{
-      display: inline-block;
-      text-decoration: none;
-      color: #fff;
-      background: $themeColor;
-      height: 35px;
-      line-height: 35px;
-      padding: 0 12px;
-      border-radius: 2px;
-      box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
+      @include btn;
     }
   }
 </style>

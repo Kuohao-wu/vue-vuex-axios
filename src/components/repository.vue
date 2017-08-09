@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="loader" v-show="isShow">
+    <div class="loader" v-show="loaderShow">
       <svg class="circular" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10">
         </circle>
@@ -21,7 +21,11 @@
         </div>
       </li>
     </ul>
-    <div v-if="loaderShow" class="loader listLoad">
+    <div v-if="tipsShow" class="noDataTips">
+      <p>sorry, no repository data !</p>
+      <a href="https://github.com/new" target="_blank">created new now</a>
+    </div>
+    <div v-if="subLoaderShow" class="loader listLoad">
       <svg class="circular" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="5" stroke-miterlimit="10">
         </circle>
@@ -38,9 +42,10 @@
     data () {
       return {
         list: [],
-        isShow: true,
+        loaderShow: true,
         listPage: 1,
-        loaderShow: false
+        subLoaderShow: false,
+        tipsShow: false
       }
     },
     store,
@@ -58,13 +63,20 @@
           params
         })
         .then(res => {
-          store.commit(types.TITLE, 'Your repository')
-          this.list = res.data
+          if (res.data.length) {
+            store.commit(types.TITLE, 'Your repository')
+            this.list = res.data
+          } else {
+            // 显示没有数据的提示
+            this.tipsShow = true
+          }
+          this.loaderShow = false
         })
         .catch(err => {
           console.log(err)
         })
       },
+      // 滚动加载
       loadMore () {
         let params = {
           page: ++this.listPage,  // 当前页数
@@ -72,7 +84,7 @@
         }
 
         // 显示loading
-        this.loaderShow = true
+        this.subLoaderShow = true
         this.axios.get(api.repo_list, {
           params
         })
@@ -81,7 +93,8 @@
             this.list = [...this.list, ...res.data]
             store.commit(types.ISBOTTOM, false)
           }
-          this.loaderShow = false
+          // 隐藏loadeing
+          this.subLoaderShow = false
         })
         .catch(err => {
           console.log(err)
@@ -108,6 +121,7 @@
 
 <style lang="scss">
   @import "src/common/style/loader.scss";
+  @import "src/common/style/mixin.scss";
   h2 {
     margin: 0;
     padding: 0;
@@ -172,4 +186,9 @@
       top: -12px;
       width: 20px;
     }
+  .noDataTips {
+    a {
+      @include btn;
+    }
+  }
 </style>
