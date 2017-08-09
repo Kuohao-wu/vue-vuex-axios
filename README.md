@@ -1,8 +1,8 @@
 # my-vue-axios
 
-## 项目live-demo
+## 项目demo地址
 
-[vue-vuex-axios](http://www.sexplus.online/vue-vuex-axios/#/)
+[live-demo](http://www.sexplus.online/vue-vuex-axios/#/)
 
 ## 项目由来
 自己再学习vue的过程中，发现了这个项目，用来练手非常不错，先把整个项目的架构脉络看一遍，然后边写注释边解读，虽然是一个小小的项目，但是其中用到的前端登录拦截功能却很实用。自己造的过程中，发现关键点就是，路由的配置和拦截，axios拦截器，vuex数据存取三个。然后又优化一下样式和体验。比如顶部导航条的logo的位置问题，logo旁边的文字切换问题，增加了无限下拉加载功能，loading加载样式。
