@@ -1,5 +1,9 @@
 # my-vue-axios
 
+### 项目live-demo
+
+[vue-vuex-axios](http://www.sexplus.online/vue-vuex-axios/#/)
+
 ## 项目由来
 自己再学习vue的过程中，发现了这个项目，用来练手非常不错，先把整个项目的架构脉络看一遍，然后边写注释边解读，虽然是一个小小的项目，但是其中用到的前端登录拦截功能却很实用。自己造的过程中，发现关键点就是，路由的配置和拦截，axios拦截器，vuex数据存取三个。然后又优化一下样式和体验。比如顶部导航条的logo的位置问题，logo旁边的文字切换问题，增加了无限下拉加载功能，loading加载样式。
 
@@ -214,7 +218,7 @@ router.beforeEach((to, from, next) => {
 
 ### 打包后的路径问题
 
-项目打包之后，vue-cli 默认output的文件路径是绝对路径，就是你打开dist/index.html里面的资源引用路径都是绝对路径。一般是没有什么问题的。但是如果你想在服务器上放多个项目，那绝对路径就有问题了，会导致index.html不能正确引用资源。所以要在webpack打包的之前修改默认的assetPlulicPath,把 "/" 改为  "./" ,这样你的项目资源就能正确被引用了。具体的配置在项目根目录下的config/index.js中。
+项目打包之后，vue-cli 默认output的文件路径是绝对路径，就是你打开dist/index.html里面的资源引用路径都是绝对路径。一般是没有什么问题的，因为一般服务器只放一个项目。但是如果你想在服务器上放多个项目，那绝对路径就有问题了，会导致index.html不能正确引用资源。所以要在webpack打包的之前修改默认的assetPlulicPath,把 "/" 改为  "./" ,这样你的项目资源就能正确被引用了。具体的配置在项目根目录下的config/index.js中。
 
 ## Build Setup
 
