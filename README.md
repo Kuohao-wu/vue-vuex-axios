@@ -70,12 +70,15 @@
 
 
 **第二部分：全局路由钩子拦截**
+
+```markdown
 1. 设置完路由之后就通过 router.beforeEach钩子来对所有的路由进行拦截，检查路由是否需要验证
 2. 如果需要验证
     ————检查vuex中是否存有Token，如果有则直接进入repository路由，展示repository信息
     ————如果vuex中没有Token，则跳转到login组件，要求进行登录。
 3. 如果不需要验证
     ————直接进入使用next()放行路由，渲染router中配置好的路由组件
+```
 
 ``` javascript
 router.beforeEach((to, from, next) => {
@@ -160,7 +163,7 @@ axios.interceptors.response.use(response => response, error => {
 
 ### 体验优化
 
-登录之后，我们当然想能够保持登录状态一段时间。这个也有几种解决方案比如说 **cookie**,**session**,**localStorage**,**sessionStorage**,这个项目作为简单的登录入门，只使用localStore来存储数据，大家有兴趣的可以去了解其他几种登录状态保持方法。
+登录之后，我们当然想能够保持登录状态一段时间。这个也有几种解决方案比如说 **cookie**,**session**,**localStorage**,**sessionStorage**,这个项目作为简单的登录入门，只使用localStorage来存储数据，大家有兴趣的可以去了解其他几种登录状态保持方法。
 
 我们登录之后，能够看到github返回的数据。但是一刷新之后，页面又跳转到了login，这是怎么回事？不是已经在localStorage里面存储了Token了吗？
 虽然存储了Token, 但是localStorage的Token并没有自动加载到vuex里面，而vuex是一刷新就没有了的。
@@ -207,7 +210,7 @@ router.beforeEach((to, from, next) => {
    ————对了，登录成功
    ————错了，清除本地储存的Token和vuex的Token
 
-所以，
+还有路由的逻辑也比较分散，一部分router.beforeEach中，一部分在拦截器中，还有一部分在login.vue中，但是只要明白了登录的逻辑，也就不难理解这些写法了。
 
 
 ## Build Setup
