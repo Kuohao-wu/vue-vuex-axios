@@ -212,6 +212,9 @@ router.beforeEach((to, from, next) => {
 
 还有路由的逻辑也比较分散，一部分router.beforeEach中，一部分在拦截器中，还有一部分在login.vue中，但是只要明白了登录的逻辑，也就不难理解这些写法了。
 
+### 打包后的路径问题
+
+项目打包之后，vue-cli 默认output的文件路径是绝对路径，就是你打开dist/index.html里面的资源引用路径都是绝对路径。一般是没有什么问题的。但是如果你想在服务器上放多个项目，那绝对路径就有问题了，会导致index.html不能正确引用资源。所以要在webpack打包的之前修改默认的assetPlulicPath,把 "/" 改为  "./" ,这样你的项目资源就能正确被引用了。具体的配置在项目根目录下的config/index.js中。
 
 ## Build Setup
 
